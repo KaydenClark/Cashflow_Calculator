@@ -1,0 +1,35 @@
+node_modules/
+dist/
+data/local/
+data/source/
+data/processed/
+outputs/
+output/playwright/
+.tmp-transaction-audit/
+.tmp-workbook-inspect/
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.ofx
+*.qif
+*.sqlite
+*.sqlite-*
+*.db
+.~lock.*
+*.tsbuildinfo
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+
+# Local-only files containing real personal financial or employment data.
+# Kept on disk, never committed. See README privacy notes.
+src/server/seedData.ts
+src/server/seed.ts
+tools/build_finance_report_pipeline.py
+docs/ACTUAL_SPENDING_CATEGORIES.md
+docs/HANDOFF.md
+design/concepts/
+WEBSITE_BUILD_PROMPT.md

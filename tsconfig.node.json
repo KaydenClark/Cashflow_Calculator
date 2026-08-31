@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "target": "ES2022",
+    "noEmit": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["vite.config.ts", "src/server", "src/domain", "tests", "tools/**/*.ts"]
+}
