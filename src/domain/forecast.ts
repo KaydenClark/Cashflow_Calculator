@@ -17,6 +17,21 @@ export function forecastRegularEarningsCents(
   );
 }
 
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function assertIsoDate(_value: string, _label: string): void {
+  if (typeof _value !== "string" || !ISO_DATE.test(_value)) {
+    throw new TypeError(`${_label} must be an ISO YYYY-MM-DD date`);
+  }
+  // A calendar-impossible date such as 2026-02-30 parses and then rolls forward
+  // into the next month, which would silently start the schedule late.
+  // Round-tripping rejects it instead of guessing which month was meant.
+  const parsed = new Date(`${_value}T12:00:00Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== _value) {
+    throw new TypeError(`${_label} is not a real calendar date: ${_value}`);
+  }
+}
+
 export function scheduleMonthlyOverride(
   _start: string,
   _horizon: string,
@@ -25,6 +40,8 @@ export function scheduleMonthlyOverride(
 ): Array<{ date: string; amountCents: number }> {
   if (_amountCents < 0 || !Number.isInteger(_amountCents)) throw new TypeError("Override amount must be non-negative cents");
   if (_dayOfMonth < 1 || _dayOfMonth > 31) throw new RangeError("Day of month must be between 1 and 31");
+  assertIsoDate(_start, "Start");
+  assertIsoDate(_horizon, "Horizon");
 
   const start = new Date(`${_start}T12:00:00Z`);
   const horizon = new Date(`${_horizon}T12:00:00Z`);
