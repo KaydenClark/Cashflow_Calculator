@@ -3,7 +3,10 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist/**", "node_modules/**", "data/**", "outputs/**", "tools/**", "design/**", "output/playwright/**", ".tmp-workbook-inspect/**", "src/**/*.js", "src/**/*.d.ts"] },
+  // `workbench/**` holds the Workbench control surface: Markdown plus
+  // receipt-backed managed runtime tools that must never be hand-edited.
+  // It is not application source, so it is linted upstream, not here.
+  { ignores: ["dist/**", "node_modules/**", "data/**", "outputs/**", "tools/**", "workbench/**", "design/**", "output/playwright/**", ".tmp-workbook-inspect/**", "src/**/*.js", "src/**/*.d.ts"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
